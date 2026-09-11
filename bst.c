@@ -11,6 +11,7 @@ No *inserir(No *raiz, int valor);
 No *criarNo(int);
 No *busca(No *, int);
 No *encontrarMin(No*);
+No *encontrarMax(No*);
 
 int main() {
   No *raiz = 0;
@@ -22,8 +23,10 @@ int main() {
 
   No *procura = busca(raiz, 30);
   No *min = encontrarMin(raiz);
+  No *max = encontrarMax(raiz);
 
   printf("Min: %d\n", min->valor);
+  printf("Max: %d\n", max->valor);
 }
 // Atenção: Não estou utilizando o cast para o mallocs
 No *inserir(No *raiz, int valor) {
@@ -69,5 +72,15 @@ No *encontrarMin(No* raiz){
         raiz = raiz->esq;
     }
     return raiz;
+}
 
+No *encontrarMax(No* raiz){
+    if(raiz == 0){
+        return 0;
+    }
+
+    while(raiz->dir != 0){
+        raiz = raiz->dir;
+    }
+    return raiz;
 }
