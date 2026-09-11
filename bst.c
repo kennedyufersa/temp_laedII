@@ -10,8 +10,16 @@ typedef struct No {
 No *inserir(No *raiz, int valor);
 No *criarNo(int);
 No *busca(No *, int);
-No *encontrarMin(No*);
-No *encontrarMax(No*);
+No *encontrarMin(No *);
+No *encontrarMax(No *);
+int altura(No *);
+/*
+
+      10                   <-raiz
+  8          30
+         14       40
+
+*/
 
 int main() {
   No *raiz = 0;
@@ -24,9 +32,11 @@ int main() {
   No *procura = busca(raiz, 30);
   No *min = encontrarMin(raiz);
   No *max = encontrarMax(raiz);
+  int h = altura(procura);
 
   printf("Min: %d\n", min->valor);
   printf("Max: %d\n", max->valor);
+  printf("Altura(30): %d\n", h);
 }
 // Atenção: Não estou utilizando o cast para o mallocs
 No *inserir(No *raiz, int valor) {
@@ -63,24 +73,37 @@ No *busca(No *raiz, int valor) {
   return busca(raiz->dir, valor);
 }
 
-No *encontrarMin(No* raiz){
-    if(raiz == 0){
-        return 0;
-    }
+No *encontrarMin(No *raiz) {
+  if (raiz == 0) {
+    return 0;
+  }
 
-    while(raiz->esq != 0){
-        raiz = raiz->esq;
-    }
-    return raiz;
+  while (raiz->esq != 0) {
+    raiz = raiz->esq;
+  }
+  return raiz;
 }
 
-No *encontrarMax(No* raiz){
-    if(raiz == 0){
-        return 0;
-    }
+No *encontrarMax(No *raiz) {
+  if (raiz == 0) {
+    return 0;
+  }
 
-    while(raiz->dir != 0){
-        raiz = raiz->dir;
-    }
-    return raiz;
+  while (raiz->dir != 0) {
+    raiz = raiz->dir;
+  }
+  return raiz;
+}
+
+int altura(No *raiz) {
+  if (raiz == 0) {
+    return -1;
+  }
+  int esq = altura(raiz->esq);
+  int dir = altura(raiz->dir);
+
+  if (esq < dir) {
+    return dir + 1;
+  }
+  return esq + 1;
 }
