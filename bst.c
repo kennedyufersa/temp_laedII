@@ -12,6 +12,13 @@ No *criarNo(int);
 No *busca(No *, int);
 No *encontrarMin(No *);
 No *encontrarMax(No *);
+
+//Percursos
+
+void preOrdem(No*);
+void inOrdem(No*);
+void posOrdem(No*);
+
 int altura(No *);
 /*
 
@@ -20,6 +27,11 @@ int altura(No *);
          14       40
 
 */
+
+// Pre-Ordem = 10 - 8 - 30 - 14 - 40
+// In-Ordem  = 8 - 10 - 14 - 30 - 40
+// Pos-Ordem = 8 - 14 - 40 - 30 - 10
+
 
 int main() {
   No *raiz = 0;
@@ -37,6 +49,12 @@ int main() {
   printf("Min: %d\n", min->valor);
   printf("Max: %d\n", max->valor);
   printf("Altura(30): %d\n", h);
+  preOrdem(raiz);
+  printf("\n");
+  inOrdem(raiz);
+  printf("\n");
+  posOrdem(raiz);
+  printf("\n");
 }
 // Atenção: Não estou utilizando o cast para o mallocs
 No *inserir(No *raiz, int valor) {
@@ -106,4 +124,26 @@ int altura(No *raiz) {
     return dir + 1;
   }
   return esq + 1;
+}
+
+void preOrdem(No* raiz){
+    if(raiz != 0){
+        printf("%d ", raiz->valor);
+        preOrdem(raiz->esq);
+        preOrdem(raiz->dir);
+    }
+}
+void posOrdem(No* raiz){
+    if(raiz != 0){
+        posOrdem(raiz->esq);
+        posOrdem(raiz->dir);
+        printf("%d ", raiz->valor);
+    }
+}
+void inOrdem(No* raiz){
+    if(raiz != 0){
+        inOrdem(raiz->esq);
+        printf("%d ", raiz->valor);
+        inOrdem(raiz->dir);
+    }
 }
